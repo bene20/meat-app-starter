@@ -370,5 +370,108 @@
       "restaurantId": "tasty-treats"
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "address": "Av das Castanheiras, 1250",
+      "number": "23",
+      "optionalAddress": "1250",
+      "paymentOption": "MON",
+      "orderItems": [
+        {
+          "quantity": 1,
+          "menuId": "cup-cake"
+        },
+        {
+          "quantity": 1,
+          "menuId": "donut"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "address": "Av das Castanheiras, 1250",
+      "number": "12",
+      "optionalAddress": "1250",
+      "paymentOption": "DEB",
+      "orderItems": [
+        {
+          "quantity": 3,
+          "menuId": "cup-cake"
+        },
+        {
+          "quantity": 1,
+          "menuId": "donut"
+        },
+        {
+          "quantity": 3,
+          "menuId": "bread"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "address": "Av das Castanheiras, 1250",
+      "number": "33",
+      "optionalAddress": "1250",
+      "paymentOption": "MON",
+      "orderItems": [
+        {
+          "quantity": 1,
+          "menuId": "cup-cake"
+        },
+        {
+          "quantity": 1,
+          "menuId": "donut"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "address": "Av das Castanheiras, 1250",
+      "number": "123",
+      "optionalAddress": "1250",
+      "paymentOption": "MON",
+      "orderItems": [
+        {
+          "quantity": 2,
+          "menuId": "cup-cake"
+        }
+      ],
+      "id": 4
+    },
+    {
+      "address": "Av das Castanheiras",
+      "number": "1250",
+      "optionalAddress": "326",
+      "paymentOption": "MON",
+      "orderItems": [
+        {
+          "quantity": 1,
+          "menuId": "cup-cake"
+        },
+        {
+          "quantity": 1,
+          "menuId": "donut"
+        },
+        {
+          "quantity": 2,
+          "menuId": "bread"
+        }
+      ],
+      "id": 5
+    },
+    {
+      "address": "Av das Castanheiras, 1250",
+      "number": "4",
+      "optionalAddress": "1250",
+      "paymentOption": "MON",
+      "orderItems": [
+        {
+          "quantity": 1,
+          "menuId": "zlasagna"
+        }
+      ],
+      "id": 6
+    }
+  ]
 }

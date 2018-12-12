@@ -31,7 +31,8 @@ export class SnackbarComponent implements OnInit {
     this.notificationService.notifier.do(message => {
       this.message = message;
       this.snackVisibility = 'visible';
-    }).switchMap(message => Observable.timer(3000)) //o switchMap faz unsubscribe do subscribe anterior se chegar uma nova mensagem e houver um subscribe pendente (aguardando o timer).
+    }).switchMap(message => Observable.timer(3000)) // o switchMap faz unsubscribe do subscribe anterior se chegar uma nova mensagem e
+                                                    // houver um subscribe pendente (aguardando o timer).
       .subscribe(timer => this.snackVisibility = 'hidden');
   }
 

@@ -41,8 +41,8 @@ export class RestaurantsComponent implements OnInit {
     });
 
     this.searchControl.valueChanges
-                      .debounceTime(500) //Só passo para a próxima execução se a diferença de tempo entre as execuções for superior a 500ms
-                      .distinctUntilChanged() //Só passo para a próima execução se a pesquisa atual for diferente da anterior
+                      .debounceTime(500) // Só passo para a próxima execução se a diferença de tempo entre as execuções for superior a 500ms
+                      .distinctUntilChanged() // Só passo para a próima execução se a pesquisa atual for diferente da anterior
                       .switchMap(searchTerm => this.restaurantsService
                                                    .restaurants(searchTerm)
                                                    .catch(error => Observable.from([]))) // Meu backend deu erro e nesse caso quero enviar

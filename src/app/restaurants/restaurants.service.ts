@@ -17,7 +17,7 @@ export class RestaurantsService {
 
   restaurants(searchTerm?: string): Observable<Restaurant[]> {
     let params: HttpParams = undefined;
-    if(searchTerm) {
+    if (searchTerm) {
       params = new HttpParams().set('q', searchTerm);
     }
 

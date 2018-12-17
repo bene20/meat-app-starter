@@ -27,7 +27,7 @@ navigateTo: string;
       email: this.fb.control('', [Validators.required, Validators.email]),
       password: this.fb.control('', [Validators.required])
     });
-    this.navigateTo = this.activatedRoute.snapshot.params['to'] || '/';
+    this.navigateTo = this.activatedRoute.snapshot.params['to'] || btoa('/'); // btoa é uma função de encoding para base64
   }
 
   login() {
@@ -38,7 +38,8 @@ navigateTo: string;
                                  // Callback executado em caso de erro:
                                  (response: HttpErrorResponse) => this.notificationService.notify(response.error.message),
                                  // Callback executado após a conclusão do Observable:
-                                 ()                            => this.router.navigate([this.navigateTo])
+                                 ()                            => this.router.navigate([ atob(this.navigateTo)]) // atob é uma função
+                                                                                                                 // de decoding de base64
                                );
   }
 

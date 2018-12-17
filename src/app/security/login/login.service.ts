@@ -35,7 +35,7 @@ export class LoginService {
     this.router.navigate(['/login', btoa(path)]); // btoa é uma função de encoding para base64
   }
 
-  logout(): any {
+  logout() {
     this.user = undefined;
   }
 }

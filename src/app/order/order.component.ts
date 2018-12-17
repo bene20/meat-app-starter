@@ -7,6 +7,8 @@ import { Order, OrderItem } from './order.model';
 import { Router } from '@angular/router';
 import { LoginService } from 'app/security/login/login.service';
 
+import 'rxjs/add/operator/do';
+
 @Component({
   selector: 'mt-order',
   templateUrl: './order.component.html'
@@ -20,6 +22,8 @@ export class OrderComponent implements OnInit {
 
   delivery: number = 8;
 
+  orderId: string;
+
   paymentOptions: RadioOption[] = [
     {label: 'Dinheiro', value: 'MON'},
     {label: 'Cartão de crédito', value: 'CRE'},
@@ -31,11 +35,11 @@ export class OrderComponent implements OnInit {
     const email = group.get('email');
     const emailConfirmation = group.get('emailConfirmation');
 
-    if(!email || !emailConfirmation) {
+    if (!email || !emailConfirmation) {
       return undefined;
     }
 
-    if(email.value !== emailConfirmation.value) {
+    if (email.value !== emailConfirmation.value) {
       return {emailsNotMatch: true};
     }
     return undefined;
@@ -78,13 +82,19 @@ export class OrderComponent implements OnInit {
     this.orderService.remove(item);
   }
 
+  isOrderCompleted(): boolean {
+    return this.orderId !== undefined;
+  }
+
   checkOrder(order: Order) {
     order.orderItems = this.cartItems()
                            .map((item: CartItem) => new OrderItem(item.quantity, item.menuItem.id));
     this.orderService.checkOrder(order)
-                     .subscribe((orderId: string) => {
-                       this.router.navigate(['/order-summary']);
-                       this.orderService.clear();
-                     });
+        .do((orderId: string) => { this.orderId = orderId; })
+        .subscribe((orderId: string) => {
+          this.router.navigate(['/order-summary']);
+          this.orderService.clear();
+        });
   }
+
 }

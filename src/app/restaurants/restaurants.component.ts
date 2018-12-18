@@ -4,12 +4,8 @@ import { RestaurantsService } from './restaurants.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/from';
-import { Observable } from 'rxjs/Observable';
+import { Observable, from } from 'rxjs';
+import { switchMap, debounceTime, distinctUntilChanged, tap, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'mt-restaurants',
@@ -40,15 +36,18 @@ export class RestaurantsComponent implements OnInit {
       searchControl: this.searchControl
     });
 
-    this.searchControl.valueChanges
-                      .debounceTime(500) // Só passo para a próxima execução se a diferença de tempo entre as execuções for superior a 500ms
-                      .distinctUntilChanged() // Só passo para a próima execução se a pesquisa atual for diferente da anterior
-                      .switchMap(searchTerm => this.restaurantsService
-                                                   .restaurants(searchTerm)
-                                                   .catch(error => Observable.from([]))) // Meu backend deu erro e nesse caso quero enviar
-                                                                                         // "nada" (como se a resposta do backend fosse
-                                                                                         // 'vazio') para o meu subscribe
-                      .subscribe(restaurants => this.restaurants = restaurants);
+    this.searchControl
+        .valueChanges
+        .pipe(
+          debounceTime(500), // Só passo para a próxima execução se a diferença de tempo entre as execuções for superior a 500ms
+          distinctUntilChanged(), // Só passo para a próima execução se a pesquisa atual for diferente da anterior
+          switchMap(searchTerm => this.restaurantsService
+                                      .restaurants(searchTerm)
+                                      .pipe(catchError(error => from([])))) // Meu backend deu erro e nesse caso quero enviar
+                                                                            // "nada" (como se a resposta do backend fosse
+                                                                            // 'vazio') para o meu subscribe
+          )
+        .subscribe(restaurants => this.restaurants = restaurants);
 
     this.restaurantsService.restaurants()
                            .subscribe( restaurants => this.restaurants = restaurants);

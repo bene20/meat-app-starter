@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { tap, filter } from 'rxjs/operators';
 import { MEAT_API } from 'app/app.api';
 import { User } from './user.model';
 
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/filter';
 import { Router, NavigationEnd } from '@angular/router';
 
 @Injectable()
@@ -18,7 +17,7 @@ export class LoginService {
               private router: Router) {
     // Abaixo me inscrevo em todos os eventos do Router (todas as navegações) e salvo sempre a última rota acessada
     this.router.events
-               .filter(e => e instanceof NavigationEnd)
+              .pipe(filter(e => e instanceof NavigationEnd))
                .subscribe((e: NavigationEnd) => this.lastUrl = e.url);
   }
 
@@ -28,7 +27,7 @@ export class LoginService {
 
   login(email: string, password: string): Observable<User> {
     return this.http.post<User>(`${MEAT_API}/login`, {email: email, password: password})
-                    .do(user => this.user = user);
+                    .pipe(tap(user => this.user = user));
   }
 
   handleLogin(path: string = this.lastUrl) {

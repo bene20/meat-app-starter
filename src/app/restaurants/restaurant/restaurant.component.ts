@@ -18,7 +18,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class RestaurantComponent implements OnInit {
 
-  restaurantState: string ='ready';
+  restaurantState: string = 'ready';
 
   @Input() restaurant: Restaurant;
 

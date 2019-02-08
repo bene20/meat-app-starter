@@ -1,8 +1,7 @@
 #!/bin/bash
 . ~/scripts/biblioteca_funcoes.sh # Include da minha biblioteca de funções
 
-workspace=~/workspaces/pessoal/angular/git/meat-app-starter
-
+workspace=$(dirname $0)
 
 #Redefinindo as dimensões deste terminal
 setTerminalWidth 175
